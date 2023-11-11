@@ -1,0 +1,40 @@
+version: "3.1"
+services:
+  database:
+    container_name: database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgre
+      - POSTGRES_DB=sample
+    networks:
+      - local
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+  database_admin:
+    container_name: database_admin
+    build:
+      context: ./database
+      dockerfile: admin.dockerfile
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=sample@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+    networks:
+      - local
+    depends_on:
+      - database
+
+networks:
+  local: {}
+
+volumes:
+  db_volume: {}
