@@ -17,6 +17,6 @@ model Post {
   published Boolean  @default(false)
 
   createdAt DateTime @db.Timestamptz(3) @map("created_at")
-  updatedAt DateTime @db.Timestamptz(3) @map("pudated_at")
+  updatedAt DateTime @db.Timestamptz(3) @map("udated_at")
   @@map("posts")
 }
